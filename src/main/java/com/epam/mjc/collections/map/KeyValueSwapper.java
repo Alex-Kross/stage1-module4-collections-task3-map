@@ -8,10 +8,10 @@ public class KeyValueSwapper {
         Map<String, Integer> map = new HashMap<>();
         for (Map.Entry<Integer, String> e : sourceMap.entrySet()) {
             if (map.containsKey(e.getValue())) {
-                for (String key : map.keySet()) {
-                    if (key.equals(e.getValue())) {
-                        if (e.getKey() >= map.get(key)) {
-                            map.put(e.getValue(), map.get(key));
+                for (Map.Entry<String, Integer> e2 : map.entrySet()) {
+                    if (e2.getKey().equals(e.getValue())) {
+                        if (e.getKey() >= e2.getValue()) {
+                            map.put(e.getValue(), e2.getValue());
                         } else {
                             map.put(e.getValue(), e.getKey());
                         }
