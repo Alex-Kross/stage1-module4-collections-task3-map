@@ -5,22 +5,32 @@ import java.util.Map;
 
 public class KeyValueSwapper {
     public Map<String, Integer> swap(Map<Integer, String> sourceMap) {
-        Map<String, Integer> map = new HashMap<>();
-        for (Map.Entry<Integer, String> e : sourceMap.entrySet()) {
-            if (map.containsKey(e.getValue())) {
-                for (Map.Entry<String, Integer> e2 : map.entrySet()) {
-                    if (e2.getKey().equals(e.getValue())) {
-                        if (e.getKey() >= e2.getValue()) {
-                            map.put(e.getValue(), e2.getValue());
+        Map<Integer, String> map = getMapWithoutRepetitionValue(sourceMap);
+        Map<String, Integer> mapSwapping = new HashMap<>();
+        for (Map.Entry<Integer, String> entry : map.entrySet()) {
+            mapSwapping.put(entry.getValue(), entry.getKey());
+        }
+        return mapSwapping;
+    }
+
+    private Map<Integer, String> getMapWithoutRepetitionValue(Map<Integer, String> map) {
+        Map<Integer, String> newMap = new HashMap<>();
+        for (Map.Entry<Integer, String> e1 : map.entrySet()) {
+            if (newMap.containsValue(e1.getValue())) {
+                for (Map.Entry<Integer, String> e2 : newMap.entrySet()) {
+                    if (e2.getValue().equals(e1.getValue())) {
+                        if (e1.getKey() > e2.getKey()) {
+                            newMap.put(e2.getKey(), e1.getValue());
                         } else {
-                            map.put(e.getValue(), e.getKey());
+                            newMap.put(e1.getKey(), e1.getValue());
                         }
                     }
                 }
-            } else {
-                map.put(e.getValue(), e.getKey());
+            }
+            else {
+                newMap.put(e1.getKey(), e1.getValue());
             }
         }
-        return map;
+        return newMap;
     }
 }
