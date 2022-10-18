@@ -22,6 +22,7 @@ public class KeyValueSwapper {
                         if (e1.getKey() > e2.getKey()) {
                             newMap.put(e2.getKey(), e1.getValue());
                         } else {
+                            newMap.remove(e2.getKey(), e2.getValue());
                             newMap.put(e1.getKey(), e1.getValue());
                         }
                     }
